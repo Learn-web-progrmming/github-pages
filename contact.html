@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اتصل بنا - تعلم البرمجة</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @font-face {
+            font-family: 'cairo';
+            src: url('cairo.ttf');
+            format('truetype');
+        }
+        body {
+            font-family: "cairo", sans-serif;
+        }
+        .nav-container {
+            transition: all 0.3s ease-in-out;
+        }
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, #8b5cf6, #ec4899);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .nav-item:hover::after {
+            transform: translateX(0);
+        }
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .bg-purple-gradient {
+            background: linear-gradient(to right, #8b5cf6, #ec4899);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <!-- Navigation -->
+    <nav class="nav-container bg-gradient-to-r from-gray-800 to-gray-900 shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-white text-2xl font-bold tracking-tight">
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">تعلم البرمجة</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4 space-x-reverse">
+                        <a href="index.html" class="nav-item text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">الرئيسية</a>
+                        <a href="index.html#courses" class="nav-item text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">الدورات</a>
+                        <a href="#" class="nav-item text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">من نحن</a>
+                        <a href="contact.html" class="nav-item text-white px-3 py-2 rounded-md text-sm font-medium">اتصل بنا</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Form Section -->
+    <section class="bg-purple-gradient py-20">
+        <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="bg-gray-800 rounded-lg p-8 shadow-xl">
+                <h2 class="text-3xl font-bold text-white mb-6 text-center">تواصل معنا</h2>
+                
+                <form action="https://formsubmit.co/bboughani6@gmail.com" method="POST" class="space-y-6">
+                    <!-- Hidden FormSubmit Fields -->
+                    <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html">
+                    <input type="hidden" name="_captcha" value="false">
+                    
+                    <div>
+                        <label class="block text-gray-300 mb-2">الاسم الكامل</label>
+                        <input type="text" name="name" required 
+                            class="w-full bg-gray-700 border border-gray-600 rounded-md px-4 py-3 text-white focus:ring-2 focus:ring-purple-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-300 mb-2">البريد الإلكتروني</label>
+                        <input type="email" name="email" required 
+                            class="w-full bg-gray-700 border border-gray-600 rounded-md px-4 py-3 text-white focus:ring-2 focus:ring-purple-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-300 mb-2">الرسالة</label>
+                        <textarea name="message" rows="5" required 
+                            class="w-full bg-gray-700 border border-gray-600 rounded-md px-4 py-3 text-white focus:ring-2 focus:ring-purple-500"></textarea>
+                    </div>
+
+                    <button type="submit" 
+                        class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-md transition-colors">
+                        <i class="fas fa-paper-plane mr-2"></i>إرسال الرسالة
+                    </button>
+                </form>
+
+                <!-- Contact Info -->
+                <div class="mt-8 pt-6 border-t border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-phone-alt text-purple-400 mr-3"></i>
+                        <a href="tel:+212605855257" class="text-gray-300 hover:text-purple-400">+212 605-855257</a>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-envelope text-purple-400 mr-3"></i>
+                        <a href="mailto:bboughani6@gmail.com" class="text-gray-300 hover:text-purple-400">bboughani6@gmail.com</a>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fab fa-facebook text-purple-400 mr-3"></i>
+                        <a href="https://www.facebook.com/profile.php?id=61553809709103" target="_blank" class="text-gray-300 hover:text-purple-400">عبد الفتاح بوغاني</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Form Submission Handling
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>جاري الإرسال...';
+        });
+    </script>
+</body>
+</html>
