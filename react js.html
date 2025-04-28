@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعلم React.js</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+    @font-face{
+  font-family:'cairo';
+  src: url('cairo.ttf');
+  format('truetype');
+}
+body{
+  font-family:"cairo",sans-serif;
+}
+        /* تنسيق خاص لبطاقات الدروس */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .lesson-card {
+            background-color: #1f2937; /* رمادي داكن */
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            background-color: #374151;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+<!-- الشريط العلوي -->
+<nav class="bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <!-- شعار الموقع -->
+            <div class="flex-shrink-0">
+                <a href="#" class="text-white font-bold text-xl">تعلم React.js</a>
+            </div>
+
+            <!-- عناصر القائمة -->
+            <div class="hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-4 space-x-reverse">
+                    <div class="nav-item">
+                        <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">الرئيسية</a>
+                    </div>
+                    <div class="nav-item relative group">
+                        <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">الدروس</a>
+                        <!-- قائمة منسدلة -->
+                        <div class="dropdown hidden absolute top-full right-0 mt-2 w-48 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5">
+                            <div class="py-1">
+                                <a href="#lesson1" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">مقدمة React</a>
+                                <a href="#lesson2" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">المكونات</a>
+                                <a href="#lesson3" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">Props</a>
+                                <a href="#lesson4" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">State</a>
+                                <a href="#lesson5" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">Hooks</a>
+                                <a href="#lesson6" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">التعامل مع النماذج</a>
+                                <a href="#lesson7" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">React Router</a>
+                                <a href="#lesson8" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">Context API</a>
+                                <a href="#lesson9" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">Fetch API</a>
+                                <a href="#lesson10" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">أفضل الممارسات</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">من نحن</a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">اتصل بنا</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- زر القائمة للأجهزة المحمولة -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- قائمة الأجهزة المحمولة -->
+    <div id="mobile-menu" class="hidden md:hidden">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">الرئيسية</a>
+            <a href="#lesson1" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">الدروس</a>
+            <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">من نحن</a>
+            <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">اتصل بنا</a>
+        </div>
+    </div>
+</nav>
+
+<!-- قسم الترحيب -->
+<section class="bg-gradient-to-b from-gray-800 to-gray-900 py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+            تعلم <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">React.js</span> من الصفر إلى الاحتراف
+        </h1>
+        <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
+            اكتشف كيفية بناء تطبيقات ويب تفاعلية باستخدام React.js من خلال دروس عملية ومباشرة.
+        </p>
+        <a href="#lesson1" class="inline-block bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold px-8 py-3 rounded-md hover:from-purple-700 hover:to-pink-700 transition-colors duration-300">
+            ابدأ التعلم الآن
+        </a>
+    </div>
+</section>
+
+<!-- قسم الدروس -->
+<section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-12">دروس React.js الشاملة</h2>
+        <div class="grid-container">
+            <!-- الدروس -->
+            <div id="lesson1" class="lesson-card">
+                <h3 class="text-xl font-semibold text-white mb-3">مقدمة في React</h3>
+                <p class="text-gray-300 mb-4">تعرف على أساسيات React وكيفية إنشاء مكون بسيط باستخدام JSX.</p>
+                <pre class="bg-gray-900 text-gray-300 p-4 rounded-md overflow-x-auto">
+<code>
+import React from 'react';
+
+function Welcome() {
+  return (
+    &lt;h1&gt;أهلاً بك في React!&lt;/h1&gt;
+  );
+}
+
+export default Welcome;
+</code>
+</pre>
+            </div>
+
+            <div id="lesson2" class="lesson-card">
+                <h3 class="text-xl font-semibold text-white mb-3">المكونات</h3>
+                <p class="text-gray-300 mb-4">تعرف على كيفية إنشاء مكونات React القابلة لإعادة الاستخدام.</p>
+                <pre class="bg-gray-900 text-gray-300 p-4 rounded-md overflow-x-auto">
+<code>
+function Greeting(props) {
+  return &lt;h1&gt;مرحباً، {props.name}!&lt;/h1&gt;;
+}
+</code>
+</pre>
+            </div>
+
+            <div id="lesson3" class="lesson-card">
+                <h3 class="text-xl font-semibold text-white mb-3">Props</h3>
+                <p class="text-gray-300 mb-4">كيفية تمرير البيانات إلى المكونات باستخدام الـProps.</p>
+                <pre class="bg-gray-900 text-gray-300 p-4 rounded-md overflow-x-auto">
+<code>
+function Welcome(props) {
+  return &lt;h1&gt;مرحباً، {props.name}!&lt;/h1&gt;;
+}
+</code>
+</pre>
+            </div>
+
+            <div id="lesson4" class="lesson-card">
+                <h3 class="text-xl font-semibold text-white mb-3">State</h3>
+                <p class="text-gray-300 mb-4">تعرف على مفهوم الحالة (State) وكيفية التحكم فيها.</p>
+                <pre class="bg-gray-900 text-gray-300 p-4 rounded-md overflow-x-auto">
+<code>
+import { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;العدد: {count}&lt;/p&gt;
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;زيادة&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+</code>
+</pre>
+            </div>
+
+            <!-- تقدر تزيد الدروس 5 - 10 هنا بنفس الشكل -->
+
+        </div>
+    </div>
+</section>
+
+<!-- خاتمة -->
+<section class="bg-gray-800 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">جاهز للغوص في عالم React؟</h2>
+        <p class="text-gray-400 mb-6">استمر في التعلم وابدأ ببناء تطبيقاتك الخاصة باستخدام المعرفة التي اكتسبتها!</p>
+        <a href="#lesson1" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-md transition-colors duration-300">
+            استكشاف الدروس
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p class="text-gray-500 text-sm">&copy; 2025 جميع الحقوق محفوظة. تعلم React.js</p>
+    </div>
+</footer>
+
+<!-- سكريبت القائمة -->
+<script>
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    const dropdownGroup = document.querySelector('.group');
+    const dropdownMenu = document.querySelector('.dropdown');
+
+    dropdownGroup.addEventListener('mouseenter', () => {
+        dropdownMenu.classList.remove('hidden');
+    });
+
+    dropdownGroup.addEventListener('mouseleave', () => {
+        dropdownMenu.classList.add('hidden');
+    });
+</script>
+
+</body>
+</html>
