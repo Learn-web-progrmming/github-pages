@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعلم Tailwind CSS - من الصفر إلى الاحتراف</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <style>
+    @font-face{
+  font-family:'cairo';
+  src: url('cairo.ttf');
+  format('truetype');
+}
+body{
+  font-family:"cairo",sans-serif;
+}
+
+
+        .nav-container {
+            transition: all 0.3s ease-in-out;
+        }
+        .nav-item {
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, #8b5cf6, #ec4899);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .nav-item:hover::after {
+            transform: translateX(0);
+        }
+        .dropdown {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .nav-logo {
+            transition: transform 0.3s ease;
+        }
+        .nav-logo:hover {
+            transform: scale(1.1);
+        }
+        .lesson-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+        }
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .code-output {
+            border: 1px solid #4b5563;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            background: #1f2937;
+            margin-top: 1rem;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background-color: #1f2937;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            position: relative;
+            margin-top: 1rem;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            background-color: #4b5563;
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        .copy-btn:hover {
+            background-color: #6b7280;
+        }
+        .copy-btn.copied {
+            background-color: #10b981;
+        }
+        /* أنماط إضافية لعرض Tailwind */
+        .tw-demo {
+            border: 1px solid #4b5563;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <!-- Navigation -->
+    <nav class="nav-container bg-gradient-to-r from-gray-800 to-gray-900 shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="nav-logo text-white text-2xl font-bold tracking-tight">
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">تعلم Tailwind</span>
+                    </a>
+                </div>
+                <!-- Menu Items -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4 space-x-reverse">
+                        <div class="nav-item">
+                            <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">الرئيسية</a>
+                        </div>
+                        <div class="nav-item relative group">
+                            <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">الدروس</a>
+                            <!-- Dropdown Menu -->
+                            <div class="dropdown absolute top-full right-0 mt-2 w-48 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5">
+                                <div class="py-1">
+                                    <a href="#lesson1" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">مقدمة Tailwind</a>
+                                    <a href="#lesson2" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">النصوص واللون</a>
+                                    <a href="#lesson3" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">التخطيط والتباعد</a>
+                                    <a href="#lesson4" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">الحدود والخلفيات</a>
+                                    <a href="#lesson5" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">Flex و Grid</a>
+                                    <a href="#lesson6" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">التصميم المتجاوب</a>
+                                    <a href="#lesson7" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">الحركات والتحويلات</a>
+                                    <a href="#lesson8" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">المكونات الجاهزة</a>
+                                    <a href="#lesson9" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">التخصيص والإعداد</a>
+                                    <a href="#lesson10" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">أفضل الممارسات</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nav-item">
+                            <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">من نحن</a>
+                        </div>
+                        <div class="nav-item">
+                            <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">اتصل بنا</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href= "home.html"class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">الرئيسية</a>
+                <a href="#lesson1" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">الدروس</a>
+                <a href="home.html" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">من نحن</a>
+                <a href="contact.html" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">اتصل بنا</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-b from-gray-800 to-gray-900 py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                تعلم <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Tailwind CSS</span> من الصفر إلى الاحتراف
+            </h1>
+            <p class="text-lg text-gray-300 mb-8">
+                دروس شاملة تأخذك خطوة بخطوة لتصميم مواقع مذهلة باستخدام Tailwind CSS.
+            </p>
+            <a href="#lesson1" class="inline-block bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold px-6 py-3 rounded-md hover:from-purple-700 hover:to-pink-700 transition-colors">
+                ابدأ التعلم الآن
+            </a>
+        </div>
+    </section>
+
+    <!-- Lessons Section -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-white mb-12">دروس Tailwind CSS الشاملة</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Lesson 1 -->
+                <div id="lesson1" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">مقدمة في Tailwind CSS</h3>
+                    <p class="text-gray-300 mb-4">
+                        تعرف على أساسيات Tailwind CSS وكيفية إعداده في مشروعك.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;!-- إضافة Tailwind CSS عبر CDN --&gt;
+&lt;link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"&gt;
+
+&lt;!-- أو التثبيت عبر npm --&gt;
+npm install -D tailwindcss
+npx tailwindcss init
+
+&lt;!-- تهيئة ملف tailwind.config.js --&gt;
+module.exports = {
+  content: ["./src/**/*.{html,js}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+&lt;!-- إنشاء ملف CSS رئيسي --&gt;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;</pre>
+                    <div class="code-output">
+                        <div class="tw-demo">
+                            <p class="text-gray-300">هذه مقدمة نظرية حول إعداد Tailwind CSS، لا يوجد ناتج مرئي لهذا الدرس.</p>
+                        </div>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+
+                <!-- Lesson 2 -->
+                <div id="lesson2" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">النصوص والألوان</h3>
+                    <p class="text-gray-300 mb-4">
+                        كيفية تنسيق النصوص واستخدام الألوان في Tailwind.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;h1 class="text-4xl font-bold text-purple-600 mb-4"&gt;
+    عنوان رئيسي
+&lt;/h1&gt;
+
+&lt;p class="text-lg text-gray-700 leading-relaxed"&gt;
+    هذا نص عادي مع تباعد بين الأسطر.
+&lt;/p&gt;
+
+&lt;div class="bg-gradient-to-r from-purple-500 to-pink-500 
+            text-white p-4 rounded-lg shadow-lg"&gt;
+    صندوق بتدرج لوني
+&lt;/div&gt;</pre>
+                    <div class="code-output">
+                        <div class="tw-demo">
+                            <h1 class="text-4xl font-bold text-purple-600 mb-4">عنوان رئيسي</h1>
+                            <p class="text-lg text-gray-300 leading-relaxed">هذا نص عادي مع تباعد بين الأسطر.</p>
+                            <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-4 rounded-lg shadow-lg mt-4">
+                                صندوق بتدرج لوني
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+
+                <!-- Lesson 3 -->
+                <div id="lesson3" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">التخطيط والتباعد</h3>
+                    <p class="text-gray-300 mb-4">
+                        استخدام Padding و Margin لتنظيم المسافات بين العناصر.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;div class="p-6 bg-gray-100 rounded-lg"&gt;
+    &lt;div class="mb-4 p-4 bg-white rounded shadow"&gt;
+        صندوق مع margin-bottom
+    &lt;/div&gt;
+    &lt;div class="mx-auto p-4 bg-white rounded shadow 
+                w-3/4"&gt;
+        صندوق بعرض 75% و margin أفقي تلقائي
+    &lt;/div&gt;
+    &lt;div class="mt-8 pt-4 border-t border-gray-300"&gt;
+        صندوق مع margin-top و padding-top
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+                    <div class="code-output">
+                        <div class="tw-demo">
+                            <div class="p-6 bg-gray-700 rounded-lg">
+                                <div class="mb-4 p-4 bg-gray-600 rounded shadow text-white">
+                                    صندوق مع margin-bottom
+                                </div>
+                                <div class="mx-auto p-4 bg-gray-600 rounded shadow w-3/4 text-white">
+                                    صندوق بعرض 75% و margin أفقي تلقائي
+                                </div>
+                                <div class="mt-8 pt-4 border-t border-gray-500 text-white">
+                                    صندوق مع margin-top و padding-top
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+
+                <!-- Lesson 4 -->
+                <div id="lesson4" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">الحدود والخلفيات</h3>
+                    <p class="text-gray-300 mb-4">
+                        تنسيق الحدود والخلفيات باستخدام فئات Tailwind.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;div class="border-2 border-purple-500 rounded-full 
+        p-4 w-32 h-32 flex items-center 
+        justify-center mx-auto"&gt;
+    دائرة
+&lt;/div&gt;
+
+&lt;div class="bg-gray-800 bg-opacity-75 
+        border-l-4 border-pink-500 
+        p-4 my-4 shadow-lg"&gt;
+    صندوق مع خلفية شبه شفافة وحدود جانبية
+&lt;/div&gt;
+
+&lt;div class="bg-white bg-gradient-to-br 
+        from-purple-100 to-pink-100 
+        p-6 rounded-xl shadow-inner"&gt;
+    صندوق بتدرج لوني داخلي
+&lt;/div&gt;</pre>
+                    <div class="code-output">
+                        <div class="tw-demo">
+                            <div class="border-2 border-purple-500 rounded-full p-4 w-32 h-32 flex items-center justify-center mx-auto text-white">
+                                دائرة
+                            </div>
+                            <div class="bg-gray-700 bg-opacity-75 border-l-4 border-pink-500 p-4 my-4 shadow-lg text-white">
+                                صندوق مع خلفية شبه شفافة وحدود جانبية
+                            </div>
+                            <div class="bg-gray-600 bg-gradient-to-br from-purple-300 to-pink-300 p-6 rounded-xl shadow-inner text-gray-900">
+                                صندوق بتدرج لوني داخلي
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+
+                <!-- Lesson 5 -->
+                <div id="lesson5" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">Flex و Grid</h3>
+                    <p class="text-gray-300 mb-4">
+                        استخدام أنظمة Flexbox و Grid لإنشاء تخطيطات متقدمة.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;!-- Flexbox مثال --&gt;
+&lt;div class="flex flex-wrap justify-between"&gt;
+    &lt;div class="w-1/4 p-4 bg-purple-500 m-2"&gt;1&lt;/div&gt;
+    &lt;div class="w-1/4 p-4 bg-purple-500 m-2"&gt;2&lt;/div&gt;
+    &lt;div class="w-1/4 p-4 bg-purple-500 m-2"&gt;3&lt;/div&gt;
+    &lt;div class="w-1/4 p-4 bg-purple-500 m-2"&gt;4&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Grid مثال --&gt;
+&lt;div class="grid grid-cols-3 gap-4 mt-6"&gt;
+    &lt;div class="bg-pink-500 p-4"&gt;A&lt;/div&gt;
+    &lt;div class="bg-pink-500 p-4"&gt;B&lt;/div&gt;
+    &lt;div class="bg-pink-500 p-4"&gt;C&lt;/div&gt;
+    &lt;div class="bg-pink-500 p-4 col-span-2"&gt;D&lt;/div&gt;
+    &lt;div class="bg-pink-500 p-4"&gt;E&lt;/div&gt;
+&lt;/div&gt;</pre>
+                    <div class="code-output">
+                        <div class="tw-demo">
+                            <div class="flex flex-wrap justify-between">
+                                <div class="w-1/4 p-4 bg-purple-500 m-2 text-white flex items-center justify-center">1</div>
+                                <div class="w-1/4 p-4 bg-purple-500 m-2 text-white flex items-center justify-center">2</div>
+                                <div class="w-1/4 p-4 bg-purple-500 m-2 text-white flex items-center justify-center">3</div>
+                                <div class="w-1/4 p-4 bg-purple-500 m-2 text-white flex items-center justify-center">4</div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 mt-6">
+                                <div class="bg-pink-500 p-4 text-white flex items-center justify-center">A</div>
+                                <div class="bg-pink-500 p-4 text-white flex items-center justify-center">B</div>
+                                <div class="bg-pink-500 p-4 text-white flex items-center justify-center">C</div>
+                                <div class="bg-pink-500 p-4 col-span-2 text-white flex items-center justify-center">D</div>
+                                <div class="bg-pink-500 p-4 text-white flex items-center justify-center">E</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+
+                <!-- Lesson 6 -->
+                <div id="lesson6" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">��لتصميم المتجاوب</h3>
+                    <p class="text-gray-300 mb-4">
+                        إنشاء تصميمات متجاوبة مع مختلف أحجام الشاشات.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;div class="bg-purple-500 p-4 
+        sm:bg-pink-500 
+        md:bg-indigo-500 
+        lg:bg-blue-500 
+        xl:bg-green-500 
+        2xl:bg-yellow-500"&gt;
+    لون الخلفية يتغير حسب حجم الشاشة
+&lt;/div&gt;
+
+&lt;div class="grid grid-cols-1 
+        sm:grid-cols-2 
+        md:grid-cols-3 
+        lg:grid-cols-4 gap-4 mt-6"&gt;
+    &lt;div class="bg-gray-200 p-4"&gt;1&lt;/div&gt;
+    &lt;div class="bg-gray-200 p-4"&gt;2&lt;/div&gt;
+    &lt;div class="bg-gray-200 p-4"&gt;3&lt;/div&gt;
+    &lt;div class="bg-gray-200 p-4"&gt;4&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="text-base sm:text-lg md:text-xl 
+        lg:text-2xl mt-6"&gt;
+    حجم النص يتغير حسب حجم الشاشة
+&lt;/div&gt;</pre>
+                    <div class="code-output">
+                        <div class="tw-demo">
+                            <div class="bg-purple-500 p-4 sm:bg-pink-500 md:bg-indigo-500 lg:bg-blue-500 xl:bg-green-500 2xl:bg-yellow-500 text-white mb-4">
+                                لون الخلفية يتغير حسب حجم الشاشة (جرب تغيير حجم النافذة)
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                                <div class="bg-gray-600 p-4 text-white">1</div>
+                                <div class="bg-gray-600 p-4 text-white">2</div>
+                                <div class="bg-gray-600 p-4 text-white">3</div>
+                                <div class="bg-gray-600 p-4 text-white">4</div>
+                            </div>
+                            <div class="text-base sm:text-lg md:text-xl lg:text-2xl mt-6 text-white">
+                                حجم النص يتغير حسب حجم الشاشة
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+
+                <!-- Lesson 7 -->
+                <div id="lesson7" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">الحركات والتحويلات</h3>
+                    <p class="text-gray-300 mb-4">
+                        إضافة حركات وتحويلات باستخدام فئات Tailwind.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;button class="bg-purple-600 text-white px-6 py-3 
+        rounded-lg hover:bg-purple-700 
+        transform hover:-translate-y-1 
+        transition duration-300 
+        hover:shadow-lg"&gt;
+    زر مع حركة
+&lt;/button&gt;
+
+&lt;div class="w-32 h-32 bg-pink-500 rounded-lg 
+        mt-6 hover:rotate-12 hover:scale-110 
+        transition-transform duration-500"&gt;
+&lt;/div&gt;
+
+&lt;div class="mt-6 p-4 bg-indigo-500 text-white 
+        opacity-0 hover:opacity-100 
+        transition-opacity duration-1000"&gt;
+    عنصر يظهر تدريجياً
+&lt;/div&gt;</pre>
+                    <div class="code-output">
+                        <div class="tw-demo">
+                            <button class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transform hover:-translate-y-1 transition duration-300 hover:shadow-lg">
+                                زر مع حركة
+                            </button>
+                            <div class="w-32 h-32 bg-pink-500 rounded-lg mt-6 hover:rotate-12 hover:scale-110 transition-transform duration-500 mx-auto"></div>
+                            <div class="mt-6 p-4 bg-indigo-500 text-white opacity-100 md:opacity-0 hover:opacity-100 transition-opacity duration-1000">
+                                عنصر يظهر تدريجياً (جرب المرور عليه)
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+
+                <!-- Lesson 8 -->
+                <div id="lesson8" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">المكونات الجاهزة</h3>
+                    <p class="text-gray-300 mb-4">
+                        كيفية إنشاء وإعادة استخدام مكونات Tailwind.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;!-- زر مخصص --&gt;
+&lt;button class="btn-primary"&gt;زر أساسي&lt;/button&gt;
+
+&lt;style&gt;
+    .btn-primary {
+        @apply bg-purple-600 text-white px-6 py-2 
+               rounded-lg hover:bg-purple-700 
+               transition-colors duration-300;
+    }
+&lt;/style&gt;
+
+&lt;!-- بطاقة مخصصة --&gt;
+&lt;div class="card"&gt;
+    &lt;h3 class="card-title"&gt;عنوان البطاقة&lt;/h3&gt;
+    &lt;p class="card-content"&gt;محتوى البطاقة&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+    .card {
+        @apply bg-white rounded-lg shadow-md p-6 
+               hover:shadow-lg transition-shadow;
+    }
+    .card-title {
+        @apply text-xl font-bold text-gray-800 mb-2;
+    }
+    .card-content {
+        @apply text-gray-600;
+    }
+&lt;/style&gt;</pre>
+                    <div class="code-output">
+                        <div class="tw-demo">
+                            <button class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors duration-300">
+                                زر أساسي
+                            </button>
+                            <div class="bg-gray-700 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow mt-4">
+                                <h3 class="text-xl font-bold text-white mb-2">عنوان البطاقة</h3>
+                                <p class="text-gray-300">محتوى البطاقة</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+
+                <!-- Lesson 9 -->
+                <div id="lesson9" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">التخصيص والإعداد</h3>
+                    <p class="text-gray-300 mb-4">
+                        كيفية تخصيص Tailwind ليتناسب مع احتياجات مشروعك.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#8B5CF6',
+        secondary: '#EC4899',
+      },
+      fontFamily: {
+        arabic: ['"Tajawal"', 'sans-serif'],
+      },
+    },
+  },
+  variants: {
+    extend: {
+      backgroundColor: ['active'],
+      textColor: ['active'],
+    },
+  },
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+  ],
+}</pre>
+                    <div class="code-output">
+                        <div class="tw-demo">
+                            <p class="text-gray-300">هذا مثال لتخصيص ملف tailwind.config.js، لا يوجد ناتج مرئي لهذا الدرس.</p>
+                        </div>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+
+                <!-- Lesson 10 -->
+                <div id="lesson10" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">أفضل الممارسات</h3>
+                    <p class="text-gray-300 mb-4">
+                        نصائح وأفضل الممارسات لاستخدام Tailwind CSS بكفاءة.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;!-- 1. استخدم @apply للمكونات المتكررة --&gt;
+&lt;style&gt;
+    .btn {
+        @apply px-4 py-2 rounded font-medium 
+               transition-colors duration-200;
+    }
+    .btn-primary {
+        @apply btn bg-purple-600 text-white 
+               hover:bg-purple-700;
+    }
+&lt;/style&gt;
+
+&lt;!-- 2. استخدم المكونات البرمجية للمكونات المعقدة --&gt;
+// React/Vue/etc component
+function Card({ title, content }) {
+    return (
+        &lt;div className="bg-white rounded-lg shadow p-6"&gt;
+            &lt;h3 className="text-xl font-bold mb-2"&gt;
+                {title}
+            &lt;/h3&gt;
+            &lt;p className="text-gray-600"&gt;{content}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+&lt;!-- 3. استخدم PurgeCSS لإزالة الفئات غير المستخدمة --&gt;
+// tailwind.config.js
+module.exports = {
+  purge: ['./src/**/*.{html,js,jsx,ts,tsx}'],
+  // ...
+}</pre>
+                    <div class="code-output">
+                        <div class="tw-demo">
+                            <p class="text-gray-300">هذه أفضل ممارسات لاستخدام Tailwind، لا يوجد ناتج مرئي لهذا الدرس.</p>
+                        </div>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-300">© 2025 تعلم Tailwind CSS. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle Mobile Menu
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Dynamic Shadow on Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav-container');
+            if (window.scrollY > 0) {
+                nav.classList.add('shadow-xl');
+            } else {
+                nav.classList.remove('shadow-xl');
+            }
+        });
+
+        // Copy Code Function
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const textToCopy = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                button.classList.add('copied');
+                button.textContent = 'تم النسخ!';
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.textContent = 'نسخ الكود';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+
+</body>
+</html>
