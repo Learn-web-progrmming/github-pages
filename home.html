@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعلم البرمجة - من الصفر إلى الاحتراف</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <style>
+        @font-face{
+            font-family:'cairo';
+            src: url('cairo.ttf');
+            format('truetype');
+        }
+        body{
+            font-family:"cairo",sans-serif;
+        }
+        .nav-container {
+            transition: all 0.3s ease-in-out;
+        }
+        .nav-item {
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, #8b5cf6, #ec4899);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .nav-item:hover::after {
+            transform: translateX(0);
+        }
+        .dropdown {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .nav-logo {
+            transition: transform 0.3s ease;
+        }
+        .nav-logo:hover {
+            transform: scale(1.1);
+        }
+        .course-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .bg-purple-gradient {
+            background: linear-gradient(to right, #8b5cf6, #ec4899) !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <!-- Navigation -->
+    <nav class="nav-container bg-gradient-to-r from-gray-800 to-gray-900 shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="nav-logo text-white text-2xl font-bold tracking-tight">
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">تعلم البرمجة</span>
+                    </a>
+                </div>
+                <!-- Menu Items -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4 space-x-reverse">
+                        <div class="nav-item">
+                            <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">الرئيسية</a>
+                        </div>
+                        <div class="nav-item">
+                            <a href="#courses" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">الدورات</a>
+                        </div>
+                        <div class="nav-item">
+                            <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">من نحن</a>
+                        </div>
+                        <div class="nav-item">
+                            <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">اتصل بنا</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="home.html" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">الرئيسية</a>
+                <a href="home.html #courses" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">الدورات</a>
+                <a href="Boughani.html" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">من نحن</a>
+                <a href="contact.html" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">اتصل بنا</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-purple-gradient py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                تعلم <span class="text-white">البرمجة</span> من الصفر إلى الاحتراف
+            </h1>
+            <p class="text-lg text-gray-100 mb-8 max-w-3xl mx-auto">
+                موقع شامل لتعلم لغات وتقنيات تطوير الويب الحديثة بدءاً من الأساسيات وحتى المستوى المتقدم
+            </p>
+            <a href="#courses" class="inline-block bg-white text-purple-600 font-bold px-8 py-3 rounded-md hover:bg-gray-100 transition-colors">
+                استكشف الدورات
+            </a>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-white mb-12">دوراتنا التعليمية</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- HTML Course -->
+                <div class="course-card bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="h-48 bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center">
+                        <h3 class="text-2xl font-bold text-white">HTML</h3>
+                    </div>
+                    <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-semibold text-white mb-3">تعلم HTML</h3>
+                        <p class="text-gray-300 mb-4">
+                            تعلم لغة ترميز النص الفائق (HTML) لإنشاء هيكل صفحات الويب. تشمل الدورة كل ما تحتاجه لبدء بناء مواقع الويب.
+                        </p>
+                        <div class="mt-auto">
+                            <a href="learn html.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-md transition-colors">
+                                ابدأ التعلم
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CSS Course -->
+                <div class="course-card bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="h-48 bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                        <h3 class="text-2xl font-bold text-white">CSS</h3>
+                    </div>
+                    <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-semibold text-white mb-3">تعلم CSS</h3>
+                        <p class="text-gray-300 mb-4">
+                            أتقن تنسيق صفحات الويب باستخدام CSS. تعلم التخطيطات، التصميم المتجاوب، والتحويلات والحركات لإنشاء مواقع جذابة.
+                        </p>
+                        <div class="mt-auto">
+                            <a href="css.html" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-2 rounded-md transition-colors">
+                                ابدأ التعلم
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JavaScript Course -->
+                <div class="course-card bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="h-48 bg-gradient-to-r from-yellow-500 to-orange-500 flex items-center justify-center">
+                        <h3 class="text-2xl font-bold text-white">JavaScript</h3>
+                    </div>
+                    <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-semibold text-white mb-3">تعلم JavaScript</h3>
+                        <p class="text-gray-300 mb-4">
+                            تعلم لغة JavaScript لإنشاء مواقع ويب تفاعلية. تشمل الدورة المفاهيم الأساسية، DOM، الأحداث، وبرمجة غير متزامنة.
+                        </p>
+                        <div class="mt-auto">
+                            <a href="Learn js.html" class="inline-block bg-yellow-600 hover:bg-yellow-700 text-white font-semibold px-6 py-2 rounded-md transition-colors">
+                                ابدأ التعلم
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bootstrap Course -->
+                <div class="course-card bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="h-48 bg-gradient-to-r from-indigo-500 to-blue-600 flex items-center justify-center">
+                        <h3 class="text-2xl font-bold text-white">Bootstrap</h3>
+                    </div>
+                    <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-semibold text-white mb-3">تعلم Bootstrap</h3>
+                        <p class="text-gray-300 mb-4">
+                            استخدم إطار عمل Bootstrap لإنشاء مواقع ويب متجاوبة بسرعة. تعلم نظام الشبكة، المكونات الجاهزة، والتخصيص.
+                        </p>
+                        <div class="mt-auto">
+                            <a href="bootsrap.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2 rounded-md transition-colors">
+                                ابدأ التعلم
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tailwind CSS Course -->
+                <div class="course-card bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="h-48 bg-gradient-to-r from-teal-500 to-green-500 flex items-center justify-center">
+                        <h3 class="text-2xl font-bold text-white">Tailwind CSS</h3>
+                    </div>
+                    <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-semibold text-white mb-3">تعلم Tailwind CSS</h3>
+                        <p class="text-gray-300 mb-4">
+                            اكتشف إطار العمل Tailwind CSS لتصميم واجهات مستخدم فريدة. تعلم فائدة الفائدة، التخصيص، وإنشاء مكونات.
+                        </p>
+                        <div class="mt-auto">
+                            <a href="tailwind css.html" class="inline-block bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-2 rounded-md transition-colors">
+                                ابدأ التعلم
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- React Course -->
+                <div class="course-card bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="h-48 bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center">
+                        <h3 class="text-2xl font-bold text-white">React.js</h3>
+                    </div>
+                    <div class="p-6 flex-grow">
+                        <h3 class="text-xl font-semibold text-white mb-3">تعلم React.js</h3>
+                        <p class="text-gray-300 mb-4">
+                            تعلم مكتبة React.js لبناء واجهات مستخدم تفاعلية. تشمل الدورة المكونات، الحالة، الـHooks، والتكامل مع واجهات API.
+                        </p>
+                        <div class="mt-auto">
+                            <a href="react js.html" class="inline-block bg-cyan-600 hover:bg-cyan-700 text-white font-semibold px-6 py-2 rounded-md transition-colors">
+                                ابدأ التعلم
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="bg-gray-800 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-white mb-6">عن الموقع</h2>
+                <p class="text-gray-300 max-w-3xl mx-auto mb-8">
+                    موقع تعلم البرمجة هو منصة تعليمية تهدف إلى تقديم دروس عالية الجودة في مجال تطوير الويب. نقدم محتوى شاملاً يبدأ من الأساسيات وحتى المستويات المتقدمة، مع التركيز على التطبيق العملي وأفضل الممارسات.
+                </p>
+                <div class="bg-gray-700 p-6 rounded-lg max-w-2xl mx-auto">
+                    <p class="text-gray-300 mb-4">
+                        تم إنشاء وتطوير هذا الموقع بواسطة <span class="text-purple-400 font-semibold">عبد الفتاح بوغاني</span>، كمشروع تعليمي يهدف إلى مساعدة المبتدئين والمطورين في رحلتهم لتعلم البرمجة وتطوير الويب.
+                    </p>
+                    <p class="text-gray-300">
+                        جميع المحتويات متاحة للتعلم الذاتي، وقد تم تصميم الدروس بعناية لتكون سهلة الفهم مع توفير أمثلة عملية.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <a href="#" class="text-white text-2xl font-bold">
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">تعلم البرمجة</span>
+                    </a>
+                </div>
+                <div class="flex space-x-6 space-x-reverse">
+                    <a href="#" class="text-gray-400 hover:text-white">الشروط والأحكام</a>
+                    <a href="#" class="text-gray-400 hover:text-white">سياسة الخصوصية</a>
+                    <a href="#" class="text-gray-400 hover:text-white">اتصل بنا</a>
+                </div>
+            </div>
+            <div class="mt-8 text-center md:text-left">
+                <p class="text-gray-500 text-sm">© 2025 جميع الحقوق محفوظة. موقع تعلم البرمجة - تم التطوير بواسطة عبد الفتاح بوغاني</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle Mobile Menu
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Dynamic Shadow on Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav-container');
+            if (window.scrollY > 0) {
+                nav.classList.add('shadow-xl');
+            } else {
+                nav.classList.remove('shadow-xl');
+            }
+        });
+    </script>
+</body>
+</html>
