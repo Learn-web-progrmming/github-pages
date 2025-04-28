@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعلم HTML - من الصفر إلى الاحتراف</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <style>
+    @font-face{
+  font-family:'cairo';
+  src: url('cairo.ttf');
+  format('truetype');
+}
+body{
+  font-family:"cairo",sans-serif;
+}
+        
+        .nav-container {
+            transition: all 0.3s ease-in-out;
+        }
+        .nav-item {
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, #8b5cf6, #ec4899);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .nav-item:hover::after {
+            transform: translateX(0);
+        }
+        .dropdown {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .nav-logo {
+            transition: transform 0.3s ease;
+        }
+        .nav-logo:hover {
+            transform: scale(1.1);
+        }
+        .lesson-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+        }
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .code-output {
+            border: 1px solid #4b5563;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            background: #1f2937;
+            margin-top: 1rem;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background-color: #1f2937;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            position: relative;
+            margin-top: 1rem;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            background-color: #4b5563;
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        .copy-btn:hover {
+            background-color: #6b7280;
+        }
+        .copy-btn.copied {
+            background-color: #10b981;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <!-- Navigation -->
+    <nav class="nav-container bg-gradient-to-r from-gray-800 to-gray-900 shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="nav-logo text-white text-2xl font-bold tracking-tight">
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">تعلم HTML</span>
+                    </a>
+                </div>
+                <!-- Menu Items -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4 space-x-reverse">
+                        <div class="nav-item">
+                            <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">الرئيسية</a>
+                        </div>
+                        <div class="nav-item relative group">
+                            <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">الدروس</a>
+                            <!-- Dropdown Menu -->
+                            <div class="dropdown absolute top-full right-0 mt-2 w-48 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5">
+                                <div class="py-1">
+                                    <a href="#lesson1" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">مقدمة HTML</a>
+                                    <a href="#lesson2" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">العناصر</a>
+                                    <a href="#lesson3" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">التنسيق</a>
+                                    <a href="#lesson4" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">الروابط</a>
+                                    <a href="#lesson5" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">الجداول</a>
+                                    <a href="#lesson6" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">النماذج</a>
+                                    <a href="#lesson7" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">الوسائط</a>
+                                    <a href="#lesson8" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">الهيكلية الدلالية</a>
+                                    <a href="#lesson9" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">إمكانية الوصول</a>
+                                    <a href="#lesson10" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white transition-colors">أفضل الممارسات</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nav-item">
+                            <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">من نحن</a>
+                        </div>
+                        <div class="nav-item">
+                            <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">اتصل بنا</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="home.html" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">الرئيسية</a>
+                <a href="#lesson1" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">الدروس</a>
+                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">من نحن</a>
+                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">اتصل بنا</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-b from-gray-800 to-gray-900 py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                تعلم <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">HTML</span> من الصفر إلى الاحتراف
+            </h1>
+            <p class="text-lg text-gray-300 mb-8">
+                دروس شاملة تأخذك خطوة بخطوة لإنشاء مواقع ويب متقدمة باستخدام HTML.
+            </p>
+            <a href="#lesson1" class="inline-block bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold px-6 py-3 rounded-md hover:from-purple-700 hover:to-pink-700 transition-colors">
+                ابدأ التعلم الآن
+            </a>
+        </div>
+    </section>
+
+    <!-- Lessons Section -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-white mb-12">دروس HTML الشاملة</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Lesson 1 - تم تحديثه مع زر النسخ -->
+                <div id="lesson1" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">مقدمة في HTML</h3>
+                    <p class="text-gray-300 mb-4">
+                        تعرف على أساسيات HTML وكيفية إنشاء صفحة ويب بسيطة.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ar"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;صفحتي الأولى&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;مرحبا بالعالم!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                    <div class="code-output">
+                        <h1>مرحبا بالعالم!</h1>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+
+                <!-- Lesson 2 - تم تحديثه مع زر النسخ -->
+                <div id="lesson2" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">العناصر والوسوم</h3>
+                    <p class="text-gray-300 mb-4">
+                        تعلم الوسوم الأساسية لإنشاء هيكل��ة الصفحة.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;div&gt;
+    &lt;p&gt;هذا نص داخل فقرة.&lt;/p&gt;
+    &lt;img src="image.jpg" alt="صورة وصفية"&gt;
+&lt;/div&gt;</pre>
+                    <div class="code-output">
+                        <p>هذا نص داخل فقرة.</p>
+                        <img src="https://via.placeholder.com/150" alt="صورة وصفية" style="max-width: 100%;">
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+
+                <!-- Lesson 3 - تم تحديثه مع زر النسخ -->
+                <div id="lesson3" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">التنسيق باستخدام HTML</h3>
+                    <p class="text-gray-300 mb-4">
+                        تنسيق النصوص والقوائم باستخدام الوسوم.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;ul&gt;
+    &lt;li&gt;عنصر قائمة 1&lt;/li&gt;
+    &lt;li&gt;عنصر قائمة 2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+    &lt;li&gt;عنصر قائمة مرقم 1&lt;/li&gt;
+    &lt;li&gt;عنصر قائمة مرقم 2&lt;/li&gt;
+&lt;/ol&gt;</pre>
+                    <div class="code-output">
+                        <ul>
+                            <li>عنصر قائمة 1</li>
+                            <li>عنصر قائمة 2</li>
+                        </ul>
+                        <ol>
+                            <li>عنصر قائمة مرقم 1</li>
+                            <li>عنصر قائمة مرقم 2</li>
+                        </ol>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+
+                <!-- Lesson 4 - تم تحديثه مع زر النسخ -->
+                <div id="lesson4" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">الروابط والتنقل</h3>
+                    <p class="text-gray-300 mb-4">
+                        إنشاء روابط داخلية وخارجية باستخدام وسم &lt;a&gt;.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;a href="https://example.com" target="_blank"&gt;زيارة الموقع&lt;/a&gt;
+&lt;a href="#lesson1"&gt;انتقل إلى الدرس الأول&lt;/a&gt;</pre>
+                    <div class="code-output">
+                        <a href="https://example.com" target="_blank" class="text-blue-400 underline">زيارة الموقع</a><br>
+                        <a href="#lesson1" class="text-blue-400 underline">انتقل إلى الدرس الأول</a>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+
+                <!-- Lesson 5 - تم تحديثه مع زر النسخ -->
+                <div id="lesson5" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">الجداول</h3>
+                    <p class="text-gray-300 mb-4">
+                        إنشاء جداول باستخدام &lt;table&gt;، &lt;tr&gt;، &lt;td&gt;، و&lt;th&gt;.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;table border="1"&gt;
+    &lt;tr&gt;
+        &lt;th&gt;الرأس 1&lt;/th&gt;
+        &lt;th&gt;الرأس 2&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;بيانات 1&lt;/td&gt;
+        &lt;td&gt;بيانات 2&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</pre>
+                    <div class="code-output">
+                        <table border="1">
+                            <tr>
+                                <th>الرأس 1</th>
+                                <th>الرأس 2</th>
+                            </tr>
+                            <tr>
+                                <td>بيانات 1</td>
+                                <td>بيانات 2</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+
+                <!-- Lesson 6 - تم تحديثه مع زر النسخ -->
+                <div id="lesson6" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">النماذج التفاعلية</h3>
+                    <p class="text-gray-300 mb-4">
+                        إنشاء نماذج لجمع بيانات المستخدم.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;form action="/submit" method="post"&gt;
+    &lt;label for="name"&gt;الاسم:&lt;/label&gt;
+    &lt;input type="text" id="name" name="name"&gt;
+    &lt;input type="submit" value="إرسال"&gt;
+&lt;/form&gt;</pre>
+                    <div class="code-output">
+                        <form action="/submit" method="post">
+                            <label for="name">الاسم:</label>
+                            <input type="text" id="name" name="name" class="border border-gray-300 p-1 rounded">
+                            <input type="submit" value="إرسال" class="bg-blue-500 text-white p-1 rounded ml-2">
+                        </form>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+
+                <!-- Lesson 7 - تم تحديثه مع زر النسخ -->
+                <div id="lesson7" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">إضافة الوسائط</h3>
+                    <p class="text-gray-300 mb-4">
+                        إضافة صور وفيديوهات وصوتيات.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;img src="image.jpg" alt="صورة"&gt;
+
+&lt;video controls&gt;
+    &lt;source src="video.mp4" type="video/mp4"&gt;
+&lt;/video&gt;</pre>
+                    <div class="code-output">
+                        <img src="https://via.placeholder.com/150" alt="صورة" style="max-width: 100%;">
+                        <video controls style="max-width: 100%;">
+                            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+
+                <!-- Lesson 8 - تم تحديثه مع زر النسخ -->
+                <div id="lesson8" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">الهيكلية الدلالية</h3>
+                    <p class="text-gray-300 mb-4">
+                        استخدام الوسوم الدلالية لتحسين الهيكلية.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;header&gt;
+    &lt;h1&gt;عنوان الموقع&lt;/h1&gt;
+&lt;/header&gt;
+
+&lt;nav&gt;
+    &lt;a href="#"&gt;الرئيسية&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;section&gt;
+    &lt;article&gt;محتوى المقال&lt;/article&gt;
+&lt;/section&gt;</pre>
+                    <div class="code-output">
+                        <header>
+                            <h1>عنوان الموقع</h1>
+                        </header>
+                        <nav>
+                            <a href="#" class="text-blue-400 underline">الرئيسية</a>
+                        </nav>
+                        <section>
+                            <article>محتوى المقال</article>
+                        </section>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+
+                <!-- Lesson 9 - تم تحديثه مع زر النسخ -->
+                <div id="lesson9" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">إمكانية الوصول</h3>
+                    <p class="text-gray-300 mb-4">
+                        جعل الموقع متاحًا للجميع باستخدام ARIA.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;img src="image.jpg" alt="وصف الصورة" aria-describedby="img-desc"&gt;
+&lt;p id="img-desc"&gt;تفاصيل إضافية عن الصورة.&lt;/p&gt;
+
+&lt;button aria-label="إغلاق النافذة"&gt;X&lt;/button&gt;</pre>
+                    <div class="code-output">
+                        <img src="https://via.placeholder.com/150" alt="وصف الصورة" aria-describedby="img-desc" style="max-width: 100%;">
+                        <p id="img-desc">تفاصيل إضافية عن الصورة.</p>
+                        <button aria-label="إغلاق النافذة" class="bg-gray-600 text-white p-2 rounded">X</button>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+
+                <!-- Lesson 10 - تم تحديثه مع زر النسخ -->
+                <div id="lesson10" class="lesson-card bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold text-white mb-2">أفضل الممارسات</h3>
+                    <p class="text-gray-300 mb-4">
+                        كتابة كود HTML نظيف ومحسن.
+                    </p>
+                    <button class="copy-btn" onclick="copyCode(this)">نسخ الكود</button>
+                    <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ar" dir="rtl"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;meta name="description" content="وصف الموقع"&gt;
+    &lt;title&gt;عنوان محسن&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;main&gt;
+        &lt;h1&gt;محتوى رئيسي&lt;/h1&gt;
+    &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                    <div class="code-output">
+                        <main>
+                            <h1>محتوى رئيسي</h1>
+                        </main>
+                    </div>
+                    <a href="#" class="mt-4 inline-block text-purple-400 hover:text-purple-300">اقرأ المزيد</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-300">© 2025 تعلم HTML. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle Mobile Menu
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Dynamic Shadow on Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav-container');
+            if (window.scrollY > 0) {
+                nav.classList.add('shadow-xl');
+            } else {
+                nav.classList.remove('shadow-xl');
+            }
+        });
+
+        // Copy Code Function
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const textToCopy = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                button.classList.add('copied');
+                button.textContent = 'تم النسخ!';
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.textContent = 'نسخ الكود';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+
+</body>
+</html>
